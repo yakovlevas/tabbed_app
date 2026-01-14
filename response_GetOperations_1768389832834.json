@@ -1,0 +1,551 @@
+{
+  "operations": [{
+    "id": "13727151949",
+    "parentOperationId": "74544429946",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "0",
+      "nano": -230000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "0",
+      "nano": 0
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "0",
+    "quantityRest": "0",
+    "figi": "BBG004S683W7",
+    "instrumentType": "share",
+    "date": "2026-01-06T13:33:13.188Z",
+    "type": "Удержание комиссии за операцию",
+    "operationType": "OPERATION_TYPE_BROKER_FEE",
+    "trades": [],
+    "assetUid": "b647e8d7-46de-4f29-bb5a-a1e594063b2d",
+    "positionUid": "8615c3f2-758c-42be-a69d-c97ac9d95f04",
+    "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+    "childOperations": []
+  }, {
+    "id": "74544429946",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "-570",
+      "nano": -900000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "57",
+      "nano": 90000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "10",
+    "quantityRest": "0",
+    "figi": "BBG004S683W7",
+    "instrumentType": "share",
+    "date": "2026-01-06T13:33:12.188Z",
+    "type": "Покупка ценных бумаг",
+    "operationType": "OPERATION_TYPE_BUY",
+    "trades": [{
+      "tradeId": "15150016718",
+      "dateTime": "2026-01-06T13:33:12.188Z",
+      "quantity": "10",
+      "price": {
+        "currency": "rub",
+        "units": "57",
+        "nano": 90000000
+      }
+    }],
+    "assetUid": "b647e8d7-46de-4f29-bb5a-a1e594063b2d",
+    "positionUid": "8615c3f2-758c-42be-a69d-c97ac9d95f04",
+    "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+    "childOperations": [{
+      "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+      "payment": {
+        "currency": "rub",
+        "units": "0",
+        "nano": -230000000
+      }
+    }]
+  }, {
+    "id": "13725792818",
+    "parentOperationId": "74540292950",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "0",
+      "nano": -30000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "0",
+      "nano": 0
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "0",
+    "quantityRest": "0",
+    "figi": "BBG004730ZJ9",
+    "instrumentType": "share",
+    "date": "2026-01-06T11:27:18.848Z",
+    "type": "Удержание комиссии за операцию",
+    "operationType": "OPERATION_TYPE_BROKER_FEE",
+    "trades": [],
+    "assetUid": "94f18cc6-9e01-4db6-9d73-8c3ba6ab9655",
+    "positionUid": "626d2ab0-3359-4d2d-8366-daedd2a0d000",
+    "instrumentUid": "8e2b0325-0292-4654-8a18-4f63ed3b0e09",
+    "childOperations": []
+  }, {
+    "id": "74540292950",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "-71",
+      "nano": -560000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "71",
+      "nano": 560000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "1",
+    "quantityRest": "0",
+    "figi": "BBG004730ZJ9",
+    "instrumentType": "share",
+    "date": "2026-01-06T11:27:17.848Z",
+    "type": "Покупка ценных бумаг",
+    "operationType": "OPERATION_TYPE_BUY",
+    "trades": [{
+      "tradeId": "15149582794",
+      "dateTime": "2026-01-06T11:27:17.848Z",
+      "quantity": "1",
+      "price": {
+        "currency": "rub",
+        "units": "71",
+        "nano": 560000000
+      }
+    }],
+    "assetUid": "94f18cc6-9e01-4db6-9d73-8c3ba6ab9655",
+    "positionUid": "626d2ab0-3359-4d2d-8366-daedd2a0d000",
+    "instrumentUid": "8e2b0325-0292-4654-8a18-4f63ed3b0e09",
+    "childOperations": [{
+      "instrumentUid": "8e2b0325-0292-4654-8a18-4f63ed3b0e09",
+      "payment": {
+        "currency": "rub",
+        "units": "0",
+        "nano": -30000000
+      }
+    }]
+  }, {
+    "id": "13724620532",
+    "parentOperationId": "74537601897",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "0",
+      "nano": -230000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "0",
+      "nano": 0
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "0",
+    "quantityRest": "0",
+    "figi": "BBG004S683W7",
+    "instrumentType": "share",
+    "date": "2026-01-06T10:08:08.754Z",
+    "type": "Удержание комиссии за операцию",
+    "operationType": "OPERATION_TYPE_BROKER_FEE",
+    "trades": [],
+    "assetUid": "b647e8d7-46de-4f29-bb5a-a1e594063b2d",
+    "positionUid": "8615c3f2-758c-42be-a69d-c97ac9d95f04",
+    "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+    "childOperations": []
+  }, {
+    "id": "74537601897",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "-573",
+      "nano": -700000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "57",
+      "nano": 370000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "10",
+    "quantityRest": "0",
+    "figi": "BBG004S683W7",
+    "instrumentType": "share",
+    "date": "2026-01-06T10:08:07.754Z",
+    "type": "Покупка ценных бумаг",
+    "operationType": "OPERATION_TYPE_BUY",
+    "trades": [{
+      "tradeId": "15149331044",
+      "dateTime": "2026-01-06T10:08:07.754Z",
+      "quantity": "10",
+      "price": {
+        "currency": "rub",
+        "units": "57",
+        "nano": 370000000
+      }
+    }],
+    "assetUid": "b647e8d7-46de-4f29-bb5a-a1e594063b2d",
+    "positionUid": "8615c3f2-758c-42be-a69d-c97ac9d95f04",
+    "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+    "childOperations": [{
+      "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+      "payment": {
+        "currency": "rub",
+        "units": "0",
+        "nano": -230000000
+      }
+    }]
+  }, {
+    "id": "13719771786",
+    "parentOperationId": "74521920397",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "0",
+      "nano": -120000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "0",
+      "nano": 0
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "0",
+    "quantityRest": "0",
+    "figi": "BBG004730N88",
+    "instrumentType": "share",
+    "date": "2026-01-05T19:27:29.136Z",
+    "type": "Удержание комиссии за операцию",
+    "operationType": "OPERATION_TYPE_BROKER_FEE",
+    "trades": [],
+    "assetUid": "40d89385-a03a-4659-bf4e-d3ecba011782",
+    "positionUid": "41eb2102-5333-4713-bf15-72b204c4bf7b",
+    "instrumentUid": "e6123145-9665-43e0-8413-cd61b8aa9b13",
+    "childOperations": []
+  }, {
+    "id": "74521920397",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "-298",
+      "nano": -860000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "298",
+      "nano": 860000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "1",
+    "quantityRest": "0",
+    "figi": "BBG004730N88",
+    "instrumentType": "share",
+    "date": "2026-01-05T19:27:28.136Z",
+    "type": "Покупка ценных бумаг",
+    "operationType": "OPERATION_TYPE_BUY",
+    "trades": [{
+      "tradeId": "15128279866",
+      "dateTime": "2026-01-05T19:27:28.136Z",
+      "quantity": "1",
+      "price": {
+        "currency": "rub",
+        "units": "298",
+        "nano": 860000000
+      }
+    }],
+    "assetUid": "40d89385-a03a-4659-bf4e-d3ecba011782",
+    "positionUid": "41eb2102-5333-4713-bf15-72b204c4bf7b",
+    "instrumentUid": "e6123145-9665-43e0-8413-cd61b8aa9b13",
+    "childOperations": [{
+      "instrumentUid": "e6123145-9665-43e0-8413-cd61b8aa9b13",
+      "payment": {
+        "currency": "rub",
+        "units": "0",
+        "nano": -120000000
+      }
+    }]
+  }, {
+    "id": "13719762616",
+    "parentOperationId": "RIN03KCOM17BLLLH7HJW",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "0",
+      "nano": -230000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "0",
+      "nano": 0
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "0",
+    "quantityRest": "0",
+    "figi": "BBG004S683W7",
+    "instrumentType": "share",
+    "date": "2026-01-05T19:26:28.626Z",
+    "type": "Удержание комиссии за операцию",
+    "operationType": "OPERATION_TYPE_BROKER_FEE",
+    "trades": [],
+    "assetUid": "b647e8d7-46de-4f29-bb5a-a1e594063b2d",
+    "positionUid": "8615c3f2-758c-42be-a69d-c97ac9d95f04",
+    "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+    "childOperations": []
+  }, {
+    "id": "RIN03KCOM17BLLLH7HJW",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "-572",
+      "nano": -500000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "57",
+      "nano": 250000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "10",
+    "quantityRest": "0",
+    "figi": "BBG004S683W7",
+    "instrumentType": "share",
+    "date": "2026-01-05T19:26:27.626Z",
+    "type": "Покупка ценных бумаг",
+    "operationType": "OPERATION_TYPE_BUY",
+    "trades": [{
+      "tradeId": "395",
+      "dateTime": "2026-01-05T19:26:27.626Z",
+      "quantity": "10",
+      "price": {
+        "currency": "rub",
+        "units": "57",
+        "nano": 250000000
+      }
+    }],
+    "assetUid": "b647e8d7-46de-4f29-bb5a-a1e594063b2d",
+    "positionUid": "8615c3f2-758c-42be-a69d-c97ac9d95f04",
+    "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+    "childOperations": [{
+      "instrumentUid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+      "payment": {
+        "currency": "rub",
+        "units": "0",
+        "nano": -230000000
+      }
+    }]
+  }, {
+    "id": "RIN03K8Q61HU42AWERDV",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "-3271",
+      "nano": -700000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "3271",
+      "nano": 700000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "1",
+    "quantityRest": "0",
+    "figi": "TCS80A107UL4",
+    "instrumentType": "share",
+    "date": "2026-01-05T19:25:14.181Z",
+    "type": "Покупка ценных бумаг",
+    "operationType": "OPERATION_TYPE_BUY",
+    "trades": [{
+      "tradeId": "34315",
+      "dateTime": "2026-01-05T19:25:14.181Z",
+      "quantity": "1",
+      "price": {
+        "currency": "rub",
+        "units": "3271",
+        "nano": 700000000
+      }
+    }],
+    "assetUid": "4393bdb6-9017-466e-a3bb-ddb55d24159f",
+    "positionUid": "2db97cb9-85b6-416b-9f70-3818a156db8b",
+    "instrumentUid": "87db07bc-0e02-4e29-90bb-05e8ef791d7b",
+    "childOperations": []
+  }, {
+    "id": "RIN03KADUAEU2I0ANEVC",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "3271",
+      "nano": 300000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "3271",
+      "nano": 300000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "1",
+    "quantityRest": "0",
+    "figi": "TCS80A107UL4",
+    "instrumentType": "share",
+    "date": "2026-01-05T19:24:53.834Z",
+    "type": "Продажа ценных бумаг",
+    "operationType": "OPERATION_TYPE_SELL",
+    "trades": [{
+      "tradeId": "3578",
+      "dateTime": "2026-01-05T19:24:53.834Z",
+      "quantity": "1",
+      "price": {
+        "currency": "rub",
+        "units": "3271",
+        "nano": 300000000
+      }
+    }],
+    "assetUid": "4393bdb6-9017-466e-a3bb-ddb55d24159f",
+    "positionUid": "2db97cb9-85b6-416b-9f70-3818a156db8b",
+    "instrumentUid": "87db07bc-0e02-4e29-90bb-05e8ef791d7b",
+    "childOperations": []
+  }, {
+    "id": "RIN03KPTDVVXCX4ARLX6",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "3271",
+      "nano": 300000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "3271",
+      "nano": 300000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "1",
+    "quantityRest": "0",
+    "figi": "TCS80A107UL4",
+    "instrumentType": "share",
+    "date": "2026-01-05T19:24:39.941Z",
+    "type": "Продажа ценных бумаг",
+    "operationType": "OPERATION_TYPE_SELL",
+    "trades": [{
+      "tradeId": "382550",
+      "dateTime": "2026-01-05T19:24:39.941Z",
+      "quantity": "1",
+      "price": {
+        "currency": "rub",
+        "units": "3271",
+        "nano": 300000000
+      }
+    }],
+    "assetUid": "4393bdb6-9017-466e-a3bb-ddb55d24159f",
+    "positionUid": "2db97cb9-85b6-416b-9f70-3818a156db8b",
+    "instrumentUid": "87db07bc-0e02-4e29-90bb-05e8ef791d7b",
+    "childOperations": []
+  }, {
+    "id": "364297288772",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "734",
+      "nano": 0
+    },
+    "price": {
+      "currency": "rub",
+      "units": "0",
+      "nano": 0
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "0",
+    "quantityRest": "0",
+    "figi": "",
+    "instrumentType": "",
+    "date": "2026-01-05T19:13:55Z",
+    "type": "Пополнение брокерского счёта",
+    "operationType": "OPERATION_TYPE_INPUT",
+    "trades": [],
+    "assetUid": "",
+    "positionUid": "",
+    "instrumentUid": "",
+    "childOperations": []
+  }, {
+    "id": "74498375924",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "-3251",
+      "nano": -200000000
+    },
+    "price": {
+      "currency": "rub",
+      "units": "3251",
+      "nano": 200000000
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "1",
+    "quantityRest": "0",
+    "figi": "TCS80A107UL4",
+    "instrumentType": "share",
+    "date": "2026-01-05T07:47:58.438Z",
+    "type": "Покупка ценных бумаг",
+    "operationType": "OPERATION_TYPE_BUY",
+    "trades": [{
+      "tradeId": "15125687765",
+      "dateTime": "2026-01-05T07:47:58.438Z",
+      "quantity": "1",
+      "price": {
+        "currency": "rub",
+        "units": "3251",
+        "nano": 200000000
+      }
+    }],
+    "assetUid": "4393bdb6-9017-466e-a3bb-ddb55d24159f",
+    "positionUid": "2db97cb9-85b6-416b-9f70-3818a156db8b",
+    "instrumentUid": "87db07bc-0e02-4e29-90bb-05e8ef791d7b",
+    "childOperations": []
+  }, {
+    "id": "364139545998",
+    "parentOperationId": "",
+    "currency": "rub",
+    "payment": {
+      "currency": "rub",
+      "units": "10000",
+      "nano": 0
+    },
+    "price": {
+      "currency": "rub",
+      "units": "0",
+      "nano": 0
+    },
+    "state": "OPERATION_STATE_EXECUTED",
+    "quantity": "0",
+    "quantityRest": "0",
+    "figi": "",
+    "instrumentType": "",
+    "date": "2026-01-05T07:06:06Z",
+    "type": "Пополнение брокерского счёта",
+    "operationType": "OPERATION_TYPE_INPUT",
+    "trades": [],
+    "assetUid": "",
+    "positionUid": "",
+    "instrumentUid": "",
+    "childOperations": []
+  }]
+}
