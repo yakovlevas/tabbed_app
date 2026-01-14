@@ -1,5 +1,5 @@
-name: tinkoff_api_tester
-description: Tinkoff Invest API Tester
+name: multi_broker_portfolio
+description: Multi-broker portfolio management app
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -10,7 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.1.0
-  intl: ^0.18.1
+  provider: ^6.1.1
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +20,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  
+  assets:
+    - assets/logos/
