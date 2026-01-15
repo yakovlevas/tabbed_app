@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/brokers_provider.dart';
@@ -45,18 +46,86 @@ class __BrokerCardState extends State<_BrokerCard> {
   final _apiKeyController = TextEditingController();
   bool _isTesting = false;
   bool _isSaved = false;
+  bool _showPassword = false;
 
   @override
   void initState() {
     super.initState();
     _apiKeyController.text = widget.broker.apiKey;
-    _isSaved = widget.broker.apiKey.isNotEmpty && widget.broker.isEnabled;
+    _isSaved = widget.broker.isSaved;
+  }
+
+  @override
+  void didUpdateWidget(_BrokerCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Обновляем состояние при изменении брокера
+    if (widget.broker.apiKey != _apiKeyController.text) {
+      _apiKeyController.text = widget.broker.apiKey;
+    }
+    setState(() {
+      _isSaved = widget.broker.isSaved;
+    });
   }
 
   @override
   void dispose() {
     _apiKeyController.dispose();
     super.dispose();
+  }
+
+  // Показать уведомление об успешном сохранении
+  void _showSuccessSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.green,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  // Показать уведомление об ошибке
+  void _showErrorSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  // Показать диалог подтверждения удаления
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Удалить сохраненный ключ?'),
+        content: const Text('Вы уверены, что хотите удалить сохраненный API ключ? После удаления его нужно будет ввести заново.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Отмена'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              try {
+                await widget.provider.removeSavedApiKey(widget.broker.id);
+                _showSuccessSnackbar(context, 'Ключ удален');
+                setState(() {
+                  _isSaved = false;
+                  _apiKeyController.clear();
+                });
+              } catch (e) {
+                _showErrorSnackbar(context, 'Ошибка удаления ключа: $e');
+              }
+            },
+            child: const Text('Удалить', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -134,13 +203,19 @@ class __BrokerCardState extends State<_BrokerCard> {
                   hintText: 'Введите ваш API ключ',
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.visibility_off),
+                    icon: Icon(
+                      _showPassword ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
                     onPressed: () {
-                      // TODO: Показать/скрыть ключ
+                      setState(() => _showPassword = !_showPassword);
                     },
                   ),
+                  prefixIcon: broker.isSaved 
+                    ? Icon(Icons.lock, color: Colors.green)
+                    : null,
                 ),
-                obscureText: true,
+                obscureText: !_showPassword,
                 onChanged: (value) {
                   widget.provider.updateApiKey(broker.id, value);
                   setState(() => _isSaved = false);
@@ -157,9 +232,20 @@ class __BrokerCardState extends State<_BrokerCard> {
                       ? null
                       : () async {
                           setState(() => _isTesting = true);
-                          await widget.provider.testConnection(broker.id);
-                          setState(() => _isSaved = true);
-                          setState(() => _isTesting = false);
+                          try {
+                            await widget.provider.testConnection(broker.id);
+                            _showSuccessSnackbar(context, 'Подключение успешно!');
+                            
+                            // Автоматически предлагаем сохранить при успешном подключении
+                            if (broker.isConnected && !broker.isSaved) {
+                              setState(() => _isSaved = true);
+                            }
+                          } catch (e) {
+                            _showErrorSnackbar(context, 'Ошибка подключения: $e');
+                            setState(() => _isSaved = false);
+                          } finally {
+                            setState(() => _isTesting = false);
+                          }
                         },
                   icon: _isTesting
                       ? const SizedBox(
@@ -192,27 +278,47 @@ class __BrokerCardState extends State<_BrokerCard> {
 
               const SizedBox(height: 16),
 
-              // Чекбокс сохранения
+              // Чекбокс сохранения и кнопка удаления
               if (broker.isConnected)
                 Row(
                   children: [
                     Checkbox(
                       value: _isSaved,
-                      onChanged: (value) {
+                      onChanged: (value) async {
                         if (value == true) {
-                          widget.provider.saveBroker(broker.id);
+                          try {
+                            await widget.provider.saveBroker(broker.id);
+                            setState(() => _isSaved = true);
+                            _showSuccessSnackbar(context, 'Ключ сохранен!');
+                          } catch (e) {
+                            _showErrorSnackbar(context, 'Ошибка сохранения: $e');
+                            setState(() => _isSaved = false);
+                          }
+                        } else {
+                          // Показываем диалог подтверждения удаления
+                          _showDeleteConfirmationDialog(context);
                         }
-                        setState(() => _isSaved = value ?? false);
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text(
-                      'Сохранить настройки подключения',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    Expanded(
+                      child: Text(
+                        broker.isSaved
+                            ? 'Ключ сохранен в памяти устройства'
+                            : 'Сохранить ключ на устройстве',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
+                    if (broker.isSaved)
+                      IconButton(
+                        icon: const Icon(Icons.delete_outline, size: 20),
+                        color: Colors.red,
+                        onPressed: () => _showDeleteConfirmationDialog(context),
+                        tooltip: 'Удалить сохраненный ключ',
+                      ),
                   ],
                 ),
 
@@ -234,12 +340,27 @@ class __BrokerCardState extends State<_BrokerCard> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Text(
-                        'Включите интеграцию для настройки подключения',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 14,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Включите интеграцию для настройки подключения',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 14,
+                            ),
+                          ),
+                          if (broker.isSaved)
+                            const SizedBox(height: 4),
+                          if (broker.isSaved)
+                            Text(
+                              '⚠️ Сохраненный ключ будет использоваться при включении',
+                              style: TextStyle(
+                                color: Colors.orange[700],
+                                fontSize: 12,
+                              ),
+                            ),
+                        ],
                       ),
                     ),
                   ],
@@ -290,6 +411,14 @@ class __BrokerCardState extends State<_BrokerCard> {
                                   : Colors.red[800],
                             ),
                           ),
+                          if (broker.isSaved)
+                            Text(
+                              'Ключ сохранен в памяти устройства',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.green[700],
+                              ),
+                            ),
                           if (broker.lastConnection != null)
                             Text(
                               'Последняя проверка: ${_formatDate(broker.lastConnection!)}',
@@ -393,6 +522,8 @@ class _ConnectionInfo extends StatelessWidget {
       'status': 'Статус',
       'message': 'Сообщение',
       'error': 'Ошибка',
+      'accountsCount': 'Количество счетов',
+      'firstAccountId': 'Первый счет',
     };
     return map[key] ?? key;
   }

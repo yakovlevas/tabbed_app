@@ -1,0 +1,11 @@
+{
+  "accounts": [{
+    "id": "2253919609",
+    "type": "ACCOUNT_TYPE_TINKOFF",
+    "name": "Брокерский счет 2",
+    "status": "ACCOUNT_STATUS_OPEN",
+    "openedDate": "2025-05-20T00:00:00Z",
+    "closedDate": "1970-01-01T00:00:00Z",
+    "accessLevel": "ACCOUNT_ACCESS_LEVEL_READ_ONLY"
+  }]
+}

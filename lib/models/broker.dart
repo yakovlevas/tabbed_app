@@ -1,121 +1,66 @@
+
+// lib/models/broker.dart
 import 'package:flutter/material.dart';
 
 class Broker {
   final String id;
   final String name;
-  final String logoAsset;
-  final int primaryColorValue; // Храним как int для сериализации
-  final String apiKey;
+  final String description;
+  final Color primaryColor;
+  final Color secondaryColor;
   final bool isEnabled;
   final bool isConnected;
-  final DateTime? lastConnection;
+  final String apiKey;
+  final String savedApiKey; // Сохраненный ключ
   final Map<String, dynamic>? connectionInfo;
+  final DateTime? lastConnection;
+  final bool isSaved; // Флаг сохранения
 
   Broker({
     required this.id,
     required this.name,
-    required this.logoAsset,
-    required this.primaryColorValue,
-    this.apiKey = '',
+    required this.description,
+    required this.primaryColor,
+    required this.secondaryColor,
     this.isEnabled = false,
     this.isConnected = false,
-    this.lastConnection,
+    this.apiKey = '',
+    this.savedApiKey = '',
     this.connectionInfo,
+    this.lastConnection,
+    this.isSaved = false,
   });
-
-  // Геттер для Color
-  Color get primaryColor => Color(primaryColorValue);
 
   Broker copyWith({
     String? id,
     String? name,
-    String? logoAsset,
-    int? primaryColorValue,
-    String? apiKey,
+    String? description,
+    Color? primaryColor,
+    Color? secondaryColor,
     bool? isEnabled,
     bool? isConnected,
-    DateTime? lastConnection,
+    String? apiKey,
+    String? savedApiKey,
     Map<String, dynamic>? connectionInfo,
+    DateTime? lastConnection,
+    bool? isSaved,
   }) {
     return Broker(
       id: id ?? this.id,
       name: name ?? this.name,
-      logoAsset: logoAsset ?? this.logoAsset,
-      primaryColorValue: primaryColorValue ?? this.primaryColorValue,
-      apiKey: apiKey ?? this.apiKey,
+      description: description ?? this.description,
+      primaryColor: primaryColor ?? this.primaryColor,
+      secondaryColor: secondaryColor ?? this.secondaryColor,
       isEnabled: isEnabled ?? this.isEnabled,
       isConnected: isConnected ?? this.isConnected,
-      lastConnection: lastConnection ?? this.lastConnection,
+      apiKey: apiKey ?? this.apiKey,
+      savedApiKey: savedApiKey ?? this.savedApiKey,
       connectionInfo: connectionInfo ?? this.connectionInfo,
+      lastConnection: lastConnection ?? this.lastConnection,
+      isSaved: isSaved ?? this.isSaved,
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'logoAsset': logoAsset,
-      'primaryColorValue': primaryColorValue,
-      'apiKey': apiKey,
-      'isEnabled': isEnabled,
-      'isConnected': isConnected,
-      'lastConnection': lastConnection?.toIso8601String(),
-      'connectionInfo': connectionInfo,
-    };
-  }
-
-  factory Broker.fromJson(Map<String, dynamic> json) {
-    return Broker(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      logoAsset: json['logoAsset'] ?? '',
-      primaryColorValue: json['primaryColorValue'] ?? 0xFF0066FF,
-      apiKey: json['apiKey'] ?? '',
-      isEnabled: json['isEnabled'] ?? false,
-      isConnected: json['isConnected'] ?? false,
-      lastConnection: json['lastConnection'] != null
-          ? DateTime.parse(json['lastConnection'])
-          : null,
-      connectionInfo: json['connectionInfo'] != null
-          ? Map<String, dynamic>.from(json['connectionInfo'])
-          : null,
-    );
-  }
-
-  static Broker tinkoff() {
-    return Broker(
-      id: 'tinkoff',
-      name: 'Тинькофф Инвестиции',
-      logoAsset: 'assets/logos/tinkoff.png',
-      primaryColorValue: 0xFF0066FF,
-    );
-  }
-
-  static Broker bcs() {
-    return Broker(
-      id: 'bcs',
-      name: 'БКС Брокер',
-      logoAsset: 'assets/logos/bcs.png',
-      primaryColorValue: 0xFF00A86B,
-      isEnabled: false,
-    );
-  }
-
-  static Broker finam() {
-    return Broker(
-      id: 'finam',
-      name: 'ФИНАМ',
-      logoAsset: 'assets/logos/finam.png',
-      primaryColorValue: 0xFF0D47A1,
-      isEnabled: false,
-    );
-  }
-
-  static List<Broker> allBrokers() {
-    return [
-      tinkoff(),
-      bcs(),
-      finam(),
-    ];
-  }
+  
+  // Проверяет, есть ли сохраненный ключ
+  bool get hasSavedKey => savedApiKey.isNotEmpty;
 }

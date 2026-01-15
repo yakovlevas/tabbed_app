@@ -1,3 +1,4 @@
+
 name: multi_broker_portfolio
 description: Multi-broker portfolio management app
 publish_to: 'none'
@@ -12,6 +13,7 @@ dependencies:
   http: ^1.1.0
   provider: ^6.1.1
   intl: ^0.18.0
+  shared_preferences: ^2.2.2  # Добавляем для сохранения данных
 
 dev_dependencies:
   flutter_test:

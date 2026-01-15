@@ -259,6 +259,61 @@ class TinkoffApiService {
       'commissions': operation.commission.map((c) => c.toDouble()).toList(),
     };
   }
+    // 7. Получение исторических данных (свечей)
+  Future<List<Map<String, dynamic>>> getCandles({
+    required String figi,
+    required DateTime from,
+    required DateTime to,
+    String interval = 'day', // '1min', '2min', '5min', '10min', '15min', '30min', 'hour', 'day', 'week', 'month'
+  }) async {
+    final request = {
+      'figi': figi,
+      'from': _formatDateForApi(from),
+      'to': _formatDateForApi(to),
+      'interval': interval.toUpperCase(),
+    };
+
+    final response = await _client.callApi(
+      'tinkoff.public.invest.api.contract.v1.MarketDataService/GetCandles',
+      request,
+    );
+
+    final candles = response['candles'] as List? ?? [];
+    return candles.cast<Map<String, dynamic>>();
+  }
+
+  // 8. Получение последней цены
+  Future<double> getLastPrice(String figi) async {
+    final request = {
+      'figi': figi,
+    };
+
+    final response = await _client.callApi(
+      'tinkoff.public.invest.api.contract.v1.MarketDataService/GetLastPrices',
+      request,
+    );
+
+    final lastPrices = response['lastPrices'] as List? ?? [];
+    if (lastPrices.isNotEmpty) {
+      final lastPrice = lastPrices.first;
+      
+      if (lastPrice['price'] != null) {
+        final priceJson = lastPrice['price'];
+        
+        // Прямое преобразование без MoneyValue
+        final units = priceJson['units'] is int 
+            ? priceJson['units'] 
+            : int.tryParse(priceJson['units']?.toString() ?? '0') ?? 0;
+        final nano = priceJson['nano'] is int 
+            ? priceJson['nano'] 
+            : int.tryParse(priceJson['nano']?.toString() ?? '0') ?? 0;
+        
+        return units + (nano / 1000000000);
+      }
+    }
+
+    return 0.0;
+  }
 
   // Получение портфеля с тикерами
   Future<Map<String, dynamic>> getPortfolioWithTickers(String accountId) async {
