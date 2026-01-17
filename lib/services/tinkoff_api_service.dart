@@ -1,3 +1,4 @@
+// lib/services/tinkoff_api_service.dart
 import 'dart:convert';
 import '../models/user_info.dart';
 import '../models/account.dart';
@@ -5,6 +6,8 @@ import '../models/stock_instrument.dart';
 import '../models/portfolio.dart';
 import '../models/operation.dart';
 import '../models/instrument_by_response.dart';
+import '../models/money_value.dart';
+import '../models/candle_interval.dart';
 import 'tinkoff_api_client.dart';
 
 class TinkoffApiService {
@@ -56,11 +59,14 @@ class TinkoffApiService {
     );
 
     final instruments = response['instruments'] as List? ?? [];
-    var result = instruments.map((json) => StockInstrument.fromJson(json)).toList();
+    var result =
+        instruments.map((json) => StockInstrument.fromJson(json)).toList();
 
     // Фильтрация и ограничение
     if (currency.isNotEmpty) {
-      result = result.where((i) => i.currency.toLowerCase() == currency.toLowerCase()).toList();
+      result = result
+          .where((i) => i.currency.toLowerCase() == currency.toLowerCase())
+          .toList();
     }
 
     if (limit > 0 && result.length > limit) {
@@ -71,7 +77,8 @@ class TinkoffApiService {
   }
 
   // 4. Портфель
-  Future<Portfolio> getPortfolio(String accountId, {String currency = 'RUB'}) async {
+  Future<Portfolio> getPortfolio(String accountId,
+      {String currency = 'RUB'}) async {
     final response = await _client.callApi(
       'tinkoff.public.invest.api.contract.v1.OperationsService/GetPortfolio',
       {
@@ -100,7 +107,8 @@ class TinkoffApiService {
     );
 
     final operations = response['operations'] as List? ?? [];
-    final result = operations.map((json) => Operation.fromJson(json)).toList();
+    final result =
+        operations.map((json) => Operation.fromJson(json)).toList();
 
     // Получаем тикеры для всех уникальных FIGI
     await _cacheTickersForOperations(result);
@@ -117,7 +125,7 @@ class TinkoffApiService {
   }) async {
     final allOperations = <Operation>[];
     DateTime currentFrom = fromDate;
-    
+
     while (currentFrom.isBefore(toDate)) {
       final currentTo = currentFrom.add(const Duration(days: 30));
       final endDate = currentTo.isAfter(toDate) ? toDate : currentTo;
@@ -128,17 +136,19 @@ class TinkoffApiService {
           fromDate: currentFrom,
           toDate: endDate,
         );
-        
+
         allOperations.addAll(batch);
-        
+
         if (batch.length < pageSize) {
           break;
         }
-        
+
         currentFrom = endDate;
-        await Future.delayed(const Duration(milliseconds: 500)); // Задержка между запросами
+        await Future.delayed(
+            const Duration(milliseconds: 500)); // Задержка между запросами
       } catch (e) {
-        print('Ошибка при получении операций с $currentFrom по $endDate: $e');
+        print(
+            'Ошибка при получении операций с $currentFrom по $endDate: $e');
         break;
       }
     }
@@ -146,11 +156,296 @@ class TinkoffApiService {
     return allOperations;
   }
 
+  // 7. Получение исторических данных (свечей) - ИСПРАВЛЕННЫЙ МЕТОД
+  Future<List<Map<String, dynamic>>> getCandles({
+    required String ticker,
+    required DateTime from,
+    required DateTime to,
+    required CandleInterval interval,
+  }) async {
+    // Проверяем валидность периода для выбранного интервала
+    if (!interval.isValidPeriod(from, to)) {
+      final recommendedInterval = CandleIntervalHelper.getRecommendedInterval(from, to);
+      print('⚠️ Период невалиден для интервала ${interval.displayName}. '
+          'Рекомендуемый интервал: ${recommendedInterval.displayName}');
+      
+      // Автоматически подбираем подходящий интервал
+      return await getCandles(
+        ticker: ticker,
+        from: from,
+        to: to,
+        interval: recommendedInterval,
+      );
+    }
+
+    // Формируем instrumentId на основе тикера
+    String instrumentId = _formatInstrumentId(ticker);
+
+    // ИСПРАВЛЕНИЕ: правильное формирование запроса
+    final request = {
+      'from': _formatDateForApi(from),
+      'to': _formatDateForApi(to),
+      'interval': _formatIntervalForApi(interval),
+      'instrumentId': instrumentId,
+      'candleSourceType': 'CANDLE_SOURCE_UNSPECIFIED',
+      'limit': '2400', // ВАЖНО: строка, а не число!
+    };
+
+    print('📊 Запрос свечей для: $instrumentId');
+    print('📅 Период: ${from.toLocal()} - ${to.toLocal()}');
+    print('⏱️ Интервал: ${interval.displayName}');
+    print('📝 Request: $request');
+
+    try {
+      final response = await _client.callApi(
+        'tinkoff.public.invest.api.contract.v1.MarketDataService/GetCandles',
+        request,
+      );
+
+      final candles = response['candles'] as List? ?? [];
+
+      // Преобразуем свечи в удобный формат
+      final List<Map<String, dynamic>> formattedCandles = [];
+
+      for (final candle in candles) {
+        try {
+          final parsedCandle = _parseCandle(candle as Map<String, dynamic>);
+          formattedCandles.add(parsedCandle);
+        } catch (e) {
+          print('⚠️ Пропускаем свечу из-за ошибки парсинга: $e');
+        }
+      }
+
+      print('✅ Получено свечей: ${formattedCandles.length}');
+
+      // Если есть свечи, выводим информацию о первой для отладки
+      if (formattedCandles.isNotEmpty) {
+        print('📊 Первая свеча: ${formattedCandles.first}');
+      }
+
+      // Ограничиваем количество свечей (максимум 500 по API)
+      if (formattedCandles.length > 500) {
+        print('⚠️ Получено ${formattedCandles.length} свечей. Обрезаем до 500.');
+        return formattedCandles.take(500).toList();
+      }
+
+      return formattedCandles;
+    } catch (e) {
+      // Если ошибка, пробуем альтернативный формат instrumentId
+      print('❌ Ошибка при запросе свечей: $e');
+      print('🔄 Пробуем альтернативный формат instrumentId...');
+      
+      return await _getCandlesWithAlternativeFormats(ticker, from, to, interval);
+    }
+  }
+
+  // Метод для парсинга одной свечи
+  Map<String, dynamic> _parseCandle(Map<String, dynamic> candleData) {
+    try {
+      final time = DateTime.parse(candleData['time'] as String);
+      final open = MoneyValue.fromJson(candleData['open'] ?? {}).toDouble();
+      final high = MoneyValue.fromJson(candleData['high'] ?? {}).toDouble();
+      final low = MoneyValue.fromJson(candleData['low'] ?? {}).toDouble();
+      final close = MoneyValue.fromJson(candleData['close'] ?? {}).toDouble();
+      
+      // Обработка volume (может быть string или int)
+      final volumeDynamic = candleData['volume'];
+      int volume;
+      if (volumeDynamic is String) {
+        volume = int.tryParse(volumeDynamic) ?? 0;
+      } else if (volumeDynamic is int) {
+        volume = volumeDynamic;
+      } else if (volumeDynamic is double) {
+        volume = volumeDynamic.toInt();
+      } else {
+        volume = 0;
+      }
+
+      return {
+        'time': time.toIso8601String(),
+        'open': open,
+        'high': high,
+        'low': low,
+        'close': close,
+        'volume': volume,
+        'isComplete': candleData['isComplete'] as bool? ?? true,
+      };
+    } catch (e, stackTrace) {
+      print('⚠️ Ошибка парсинга свечи: $e');
+      print('⚠️ Stack trace: $stackTrace');
+      print('⚠️ Данные свечи: $candleData');
+      rethrow;
+    }
+  }
+
+  // Метод для проб разных форматов instrumentId
+  Future<List<Map<String, dynamic>>> _getCandlesWithAlternativeFormats(
+    String ticker,
+    DateTime from,
+    DateTime to,
+    CandleInterval interval,
+  ) async {
+    // Пробуем разные форматы instrumentId
+    final List<String> alternativeFormats = [
+      _formatInstrumentId(ticker), // Первоначальный формат
+      '${ticker}_TQBR',  // Российские акции (Московская биржа)
+      '${ticker}_SPBXM', // Иностранные акции (СПБ биржа)
+      '${ticker}_MOEX',  // Московская биржа (альтернативный формат)
+      '${ticker}_TQTF',  // ETF на Московской бирже
+      '${ticker}_TQOB',  // Облигации на Московской бирже
+      '${ticker}_TQTE',  // Иностранные ценные бумаги
+      ticker,            // Просто тикер без суффикса
+    ];
+
+    for (final format in alternativeFormats) {
+      try {
+        print('🔄 Пробуем формат: $format');
+        
+        final request = {
+          'from': _formatDateForApi(from),
+          'to': _formatDateForApi(to),
+          'interval': _formatIntervalForApi(interval),
+          'instrumentId': format,
+          'candleSourceType': 'CANDLE_SOURCE_UNSPECIFIED',
+          'limit': '2400',
+        };
+
+        final response = await _client.callApi(
+          'tinkoff.public.invest.api.contract.v1.MarketDataService/GetCandles',
+          request,
+        );
+
+        final candles = response['candles'] as List? ?? [];
+        
+        if (candles.isNotEmpty) {
+          // Преобразуем свечи в удобный формат
+          final List<Map<String, dynamic>> formattedCandles = [];
+
+          for (final candle in candles) {
+            try {
+              final parsedCandle = _parseCandle(candle as Map<String, dynamic>);
+              formattedCandles.add(parsedCandle);
+            } catch (e) {
+              print('⚠️ Пропускаем свечу из-за ошибки парсинга: $e');
+            }
+          }
+
+          if (formattedCandles.isNotEmpty) {
+            print('✅ Успех с форматом: $format (свечей: ${formattedCandles.length})');
+            return formattedCandles;
+          }
+        }
+      } catch (e) {
+        print('⚠️ Формат $format не сработал: $e');
+        continue;
+      }
+    }
+
+    print('❌ Ни один формат instrumentId не сработал для тикера: $ticker');
+    throw Exception('Не удалось получить данные для тикера $ticker');
+  }
+
+  // 8. Получение последней цены по FIGI
+  Future<double> getLastPrice(String figi) async {
+    final request = {
+      'figi': figi,
+    };
+
+    final response = await _client.callApi(
+      'tinkoff.public.invest.api.contract.v1.MarketDataService/GetLastPrices',
+      request,
+    );
+
+    final lastPrices = response['lastPrices'] as List? ?? [];
+    if (lastPrices.isNotEmpty) {
+      final lastPrice = lastPrices.first;
+      final priceValue = MoneyValue.fromJson(lastPrice['price'] ?? {});
+      return priceValue.toDouble();
+    }
+
+    return 0.0;
+  }
+
+  // 9. Получение информации об инструменте
+  Future<Map<String, dynamic>> getInstrumentInfo(String figi) async {
+    try {
+      final request = {
+        'idType': 'INSTRUMENT_ID_TYPE_FIGI',
+        'classCode': '',
+        'id': figi,
+      };
+
+      final response = await _client.callApi(
+        'tinkoff.public.invest.api.contract.v1.InstrumentsService/GetInstrumentBy',
+        request,
+      );
+
+      final instrument = response['instrument'] as Map<String, dynamic>? ?? {};
+
+      // Возвращаем основные поля инструмента
+      return {
+        'figi': instrument['figi'] ?? '',
+        'ticker': instrument['ticker'] ?? '',
+        'name': instrument['name'] ?? '',
+        'currency': instrument['currency'] ?? '',
+        'lot': instrument['lot'] ?? 1,
+        'type': instrument['instrumentType'] ?? '',
+        'classCode': instrument['classCode'] ?? '',
+      };
+    } catch (e) {
+      print('Ошибка получения информации об инструменте $figi: $e');
+      return {};
+    }
+  }
+
   // === ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ===
 
   // Форматирование даты для API
   String _formatDateForApi(DateTime date) {
     return date.toUtc().toIso8601String();
+  }
+
+  // Форматирование instrumentId из тикера
+  String _formatInstrumentId(String ticker) {
+    // Убираем лишние пробелы и приводим к верхнему регистру
+    final cleanTicker = ticker.trim().toUpperCase();
+    
+    // Если уже содержит суффикс биржи, возвращаем как есть
+    if (cleanTicker.contains('_')) {
+      return cleanTicker;
+    }
+    
+    // По умолчанию для российских тикеров используем TQBR
+    return '${cleanTicker}_TQBR';
+  }
+
+  // Форматирование интервала для API
+  String _formatIntervalForApi(CandleInterval interval) {
+    // Используем value из enum, если он правильный
+    final value = interval.value;
+    
+    // Проверяем, соответствует ли value формату API
+    if (value.startsWith('CANDLE_INTERVAL_')) {
+      return value;
+    }
+    
+    // Если value не в правильном формате, конвертируем
+    switch (interval) {
+      case CandleInterval.day:
+        return 'CANDLE_INTERVAL_DAY';
+      case CandleInterval.hour:
+        return 'CANDLE_INTERVAL_HOUR';
+      case CandleInterval.minute1:
+        return 'CANDLE_INTERVAL_1_MIN';
+      case CandleInterval.minute5:
+        return 'CANDLE_INTERVAL_5_MIN';
+      case CandleInterval.minute15:
+        return 'CANDLE_INTERVAL_15_MIN';
+      case CandleInterval.minute30:
+        return 'CANDLE_INTERVAL_30_MIN';
+      default:
+        return 'CANDLE_INTERVAL_DAY';
+    }
   }
 
   // Кэширование тикеров для операций
@@ -180,7 +475,7 @@ class TinkoffApiService {
     return ticker;
   }
 
-  // Получение информации об инструменте
+  // Получение информации об инструменте (через клиент)
   Future<InstrumentByResponse> getInstrumentByFigi(String figi) async {
     return await _client.getInstrumentByFigi(figi);
   }
@@ -259,66 +554,12 @@ class TinkoffApiService {
       'commissions': operation.commission.map((c) => c.toDouble()).toList(),
     };
   }
-    // 7. Получение исторических данных (свечей)
-  Future<List<Map<String, dynamic>>> getCandles({
-    required String figi,
-    required DateTime from,
-    required DateTime to,
-    String interval = 'day', // '1min', '2min', '5min', '10min', '15min', '30min', 'hour', 'day', 'week', 'month'
-  }) async {
-    final request = {
-      'figi': figi,
-      'from': _formatDateForApi(from),
-      'to': _formatDateForApi(to),
-      'interval': interval.toUpperCase(),
-    };
-
-    final response = await _client.callApi(
-      'tinkoff.public.invest.api.contract.v1.MarketDataService/GetCandles',
-      request,
-    );
-
-    final candles = response['candles'] as List? ?? [];
-    return candles.cast<Map<String, dynamic>>();
-  }
-
-  // 8. Получение последней цены
-  Future<double> getLastPrice(String figi) async {
-    final request = {
-      'figi': figi,
-    };
-
-    final response = await _client.callApi(
-      'tinkoff.public.invest.api.contract.v1.MarketDataService/GetLastPrices',
-      request,
-    );
-
-    final lastPrices = response['lastPrices'] as List? ?? [];
-    if (lastPrices.isNotEmpty) {
-      final lastPrice = lastPrices.first;
-      
-      if (lastPrice['price'] != null) {
-        final priceJson = lastPrice['price'];
-        
-        // Прямое преобразование без MoneyValue
-        final units = priceJson['units'] is int 
-            ? priceJson['units'] 
-            : int.tryParse(priceJson['units']?.toString() ?? '0') ?? 0;
-        final nano = priceJson['nano'] is int 
-            ? priceJson['nano'] 
-            : int.tryParse(priceJson['nano']?.toString() ?? '0') ?? 0;
-        
-        return units + (nano / 1000000000);
-      }
-    }
-
-    return 0.0;
-  }
 
   // Получение портфеля с тикерами
-  Future<Map<String, dynamic>> getPortfolioWithTickers(String accountId) async {
+  Future<Map<String, dynamic>> getPortfolioWithTickers(
+      String accountId) async {
     final portfolio = await getPortfolio(accountId);
-    
+
     final positionsWithTickers = <Map<String, dynamic>>[];
     double totalValue = 0;
 
@@ -350,7 +591,8 @@ class TinkoffApiService {
     };
   }
 
-  Map<String, dynamic> _groupPositionsByType(List<Map<String, dynamic>> positions) {
+  Map<String, dynamic> _groupPositionsByType(
+      List<Map<String, dynamic>> positions) {
     final result = <String, double>{};
     for (final pos in positions) {
       final type = pos['instrumentType'] as String;
@@ -359,7 +601,8 @@ class TinkoffApiService {
     return result;
   }
 
-  Map<String, dynamic> _groupPositionsByCurrency(List<Map<String, dynamic>> positions) {
+  Map<String, dynamic> _groupPositionsByCurrency(
+      List<Map<String, dynamic>> positions) {
     final result = <String, double>{};
     for (final pos in positions) {
       final currency = pos['currency'] as String;

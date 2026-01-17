@@ -1,0 +1,532 @@
+{
+  "candles": [{
+    "open": {
+      "units": "72",
+      "nano": 100000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 570000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 970000000
+    },
+    "close": {
+      "units": "73",
+      "nano": 320000000
+    },
+    "volume": "124800206",
+    "time": "2025-12-18T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "69153694",
+    "volumeSell": "55646512"
+  }, {
+    "open": {
+      "units": "73",
+      "nano": 360000000
+    },
+    "high": {
+      "units": "74",
+      "nano": 280000000
+    },
+    "low": {
+      "units": "72",
+      "nano": 720000000
+    },
+    "close": {
+      "units": "73",
+      "nano": 70000000
+    },
+    "volume": "136119142",
+    "time": "2025-12-19T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "71143961",
+    "volumeSell": "64975181"
+  }, {
+    "open": {
+      "units": "73",
+      "nano": 150000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 250000000
+    },
+    "low": {
+      "units": "72",
+      "nano": 950000000
+    },
+    "close": {
+      "units": "73",
+      "nano": 120000000
+    },
+    "volume": "3056760",
+    "time": "2025-12-20T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "1520968",
+    "volumeSell": "1535792"
+  }, {
+    "open": {
+      "units": "73",
+      "nano": 90000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 160000000
+    },
+    "low": {
+      "units": "72",
+      "nano": 950000000
+    },
+    "close": {
+      "units": "73",
+      "nano": 80000000
+    },
+    "volume": "2771633",
+    "time": "2025-12-21T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "1378713",
+    "volumeSell": "1392920"
+  }, {
+    "open": {
+      "units": "73",
+      "nano": 170000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 330000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 30000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 190000000
+    },
+    "volume": "97237119",
+    "time": "2025-12-22T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "40968605",
+    "volumeSell": "56268514"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 250000000
+    },
+    "high": {
+      "units": "72",
+      "nano": 110000000
+    },
+    "low": {
+      "units": "70",
+      "nano": 620000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 880000000
+    },
+    "volume": "57546593",
+    "time": "2025-12-23T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "29384448",
+    "volumeSell": "28162145"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 920000000
+    },
+    "high": {
+      "units": "72",
+      "nano": 200000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 370000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 600000000
+    },
+    "volume": "38647750",
+    "time": "2025-12-24T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "17122965",
+    "volumeSell": "21524785"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 800000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 880000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 180000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 400000000
+    },
+    "volume": "25762422",
+    "time": "2025-12-25T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "12308715",
+    "volumeSell": "13453707"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 400000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 100000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 300000000
+    },
+    "close": {
+      "units": "72",
+      "nano": 920000000
+    },
+    "volume": "72258291",
+    "time": "2025-12-26T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "43842765",
+    "volumeSell": "28415526"
+  }, {
+    "open": {
+      "units": "73",
+      "nano": 10000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 150000000
+    },
+    "low": {
+      "units": "72",
+      "nano": 770000000
+    },
+    "close": {
+      "units": "72",
+      "nano": 950000000
+    },
+    "volume": "8640898",
+    "time": "2025-12-27T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "3961644",
+    "volumeSell": "4679254"
+  }, {
+    "open": {
+      "units": "72",
+      "nano": 830000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 70000000
+    },
+    "low": {
+      "units": "72",
+      "nano": 600000000
+    },
+    "close": {
+      "units": "72",
+      "nano": 920000000
+    },
+    "volume": "6997767",
+    "time": "2025-12-28T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "3417647",
+    "volumeSell": "3580120"
+  }, {
+    "open": {
+      "units": "73",
+      "nano": 290000000
+    },
+    "high": {
+      "units": "73",
+      "nano": 950000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 800000000
+    },
+    "close": {
+      "units": "72",
+      "nano": 170000000
+    },
+    "volume": "91335409",
+    "time": "2025-12-29T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "42446056",
+    "volumeSell": "48889353"
+  }, {
+    "open": {
+      "units": "72",
+      "nano": 80000000
+    },
+    "high": {
+      "units": "72",
+      "nano": 570000000
+    },
+    "low": {
+      "units": "72",
+      "nano": 80000000
+    },
+    "close": {
+      "units": "72",
+      "nano": 220000000
+    },
+    "volume": "40481842",
+    "time": "2025-12-30T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "18627990",
+    "volumeSell": "21853852"
+  }, {
+    "open": {
+      "units": "72",
+      "nano": 220000000
+    },
+    "high": {
+      "units": "72",
+      "nano": 240000000
+    },
+    "low": {
+      "units": "70",
+      "nano": 910000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 550000000
+    },
+    "volume": "38134118",
+    "time": "2026-01-05T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "16865081",
+    "volumeSell": "21269037"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 650000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 840000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 400000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 500000000
+    },
+    "volume": "17092027",
+    "time": "2026-01-06T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "7565284",
+    "volumeSell": "9526743"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 100000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 360000000
+    },
+    "low": {
+      "units": "70",
+      "nano": 900000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 70000000
+    },
+    "volume": "20999977",
+    "time": "2026-01-08T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "9142212",
+    "volumeSell": "11857765"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 130000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 670000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 90000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 220000000
+    },
+    "volume": "16645611",
+    "time": "2026-01-09T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "7301683",
+    "volumeSell": "9343928"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 250000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 880000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 50000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 340000000
+    },
+    "volume": "28565381",
+    "time": "2026-01-12T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "14369217",
+    "volumeSell": "14196164"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 350000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 560000000
+    },
+    "low": {
+      "units": "70",
+      "nano": 760000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 160000000
+    },
+    "volume": "32112758",
+    "time": "2026-01-13T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "15217975",
+    "volumeSell": "16894783"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 260000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 400000000
+    },
+    "low": {
+      "units": "70",
+      "nano": 510000000
+    },
+    "close": {
+      "units": "70",
+      "nano": 910000000
+    },
+    "volume": "66380918",
+    "time": "2026-01-14T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "33661289",
+    "volumeSell": "32719629"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 50000000
+    },
+    "high": {
+      "units": "71",
+      "nano": 480000000
+    },
+    "low": {
+      "units": "70",
+      "nano": 850000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 130000000
+    },
+    "volume": "38683220",
+    "time": "2026-01-15T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "21742612",
+    "volumeSell": "16940608"
+  }, {
+    "open": {
+      "units": "71",
+      "nano": 130000000
+    },
+    "high": {
+      "units": "72",
+      "nano": 190000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 130000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 980000000
+    },
+    "volume": "42039891",
+    "time": "2026-01-16T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "25494397",
+    "volumeSell": "16545494"
+  }, {
+    "open": {
+      "units": "72",
+      "nano": 140000000
+    },
+    "high": {
+      "units": "72",
+      "nano": 150000000
+    },
+    "low": {
+      "units": "71",
+      "nano": 930000000
+    },
+    "close": {
+      "units": "71",
+      "nano": 980000000
+    },
+    "volume": "1827554",
+    "time": "2026-01-17T00:00:00Z",
+    "isComplete": false,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "832616",
+    "volumeSell": "994938"
+  }]
+}

@@ -447,4 +447,5 @@ class BrokersProvider extends ChangeNotifier {
     
     return result;
   }
+   TinkoffApiService? get tinkoffApiService => _tinkoffApiService;
 }

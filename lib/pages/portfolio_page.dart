@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/brokers_provider.dart';
 import '../models/portfolio.dart';
+import 'chart_page.dart';
 
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({super.key});
@@ -1078,6 +1079,32 @@ class _PositionDetailsSheet extends StatelessWidget {
           
           const SizedBox(height: 24),
           
+          // Кнопка графика
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pop(context); // Закрываем текущее окно
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChartPage(position: position),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.timeline),
+              label: const Text('Показать график'),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+          
+          const SizedBox(height: 16),
+          
           // Подробная таблица
           Text(
             'Детальная информация',
@@ -1110,39 +1137,6 @@ class _PositionDetailsSheet extends StatelessWidget {
                 _buildTableRow('Инвестировано', '${(quantity * avgPrice).toStringAsFixed(2)} ₽'),
               ],
             ),
-          ),
-          
-          const SizedBox(height: 24),
-          
-          // Кнопки действий
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: () {
-                    // TODO: Показать график
-                  },
-                  icon: const Icon(Icons.timeline),
-                  label: const Text('График'),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: () {
-                    // TODO: Показать новости
-                  },
-                  icon: const Icon(Icons.article),
-                  label: const Text('Новости'),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                ),
-              ),
-            ],
           ),
           
           const SizedBox(height: 32),

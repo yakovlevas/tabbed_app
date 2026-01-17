@@ -1,0 +1,74 @@
+{
+  "instrument": {
+    "figi": "BBG004730ZJ9",
+    "ticker": "VTBR",
+    "classCode": "TQBR",
+    "isin": "RU000A0JP5V6",
+    "lot": 1,
+    "currency": "rub",
+    "klong": {
+      "units": "2",
+      "nano": 0
+    },
+    "kshort": {
+      "units": "2",
+      "nano": 0
+    },
+    "dlong": {
+      "units": "0",
+      "nano": 232000000
+    },
+    "dshort": {
+      "units": "0",
+      "nano": 355000000
+    },
+    "dlongMin": {
+      "units": "0",
+      "nano": 181800000
+    },
+    "dshortMin": {
+      "units": "0",
+      "nano": 222200000
+    },
+    "shortEnabledFlag": true,
+    "name": "Банк ВТБ",
+    "exchange": "moex_mrng_evng_e_wknd_dlr",
+    "countryOfRisk": "RU",
+    "countryOfRiskName": "Российская Федерация",
+    "instrumentType": "share",
+    "tradingStatus": "SECURITY_TRADING_STATUS_NORMAL_TRADING",
+    "otcFlag": false,
+    "buyAvailableFlag": true,
+    "sellAvailableFlag": true,
+    "minPriceIncrement": {
+      "units": "0",
+      "nano": 10000000
+    },
+    "apiTradeAvailableFlag": true,
+    "uid": "8e2b0325-0292-4654-8a18-4f63ed3b0e09",
+    "realExchange": "REAL_EXCHANGE_MOEX",
+    "positionUid": "626d2ab0-3359-4d2d-8366-daedd2a0d000",
+    "assetUid": "94f18cc6-9e01-4db6-9d73-8c3ba6ab9655",
+    "requiredTests": [],
+    "forIisFlag": true,
+    "forQualInvestorFlag": false,
+    "weekendFlag": true,
+    "blockedTcaFlag": false,
+    "instrumentKind": "INSTRUMENT_TYPE_SHARE",
+    "first1minCandleDate": "2018-03-07T18:33:00Z",
+    "first1dayCandleDate": "2007-05-28T07:00:00Z",
+    "brand": {
+      "logoName": "vtb.png",
+      "logoBaseColor": "#0a2973",
+      "textColor": "#ffffff"
+    },
+    "dlongClient": {
+      "units": "0",
+      "nano": 232000000
+    },
+    "dshortClient": {
+      "units": "0",
+      "nano": 355000000
+    }
+  }
+}

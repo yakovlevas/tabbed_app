@@ -1,0 +1,49 @@
+{
+  "candles": [{
+    "open": {
+      "units": "57",
+      "nano": 800000000
+    },
+    "high": {
+      "units": "60",
+      "nano": 890000000
+    },
+    "low": {
+      "units": "54",
+      "nano": 640000000
+    },
+    "close": {
+      "units": "57",
+      "nano": 950000000
+    },
+    "volume": "68803889",
+    "time": "2025-12-01T00:00:00Z",
+    "isComplete": true,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "33550747",
+    "volumeSell": "35253142"
+  }, {
+    "open": {
+      "units": "57",
+      "nano": 690000000
+    },
+    "high": {
+      "units": "57",
+      "nano": 950000000
+    },
+    "low": {
+      "units": "54",
+      "nano": 680000000
+    },
+    "close": {
+      "units": "56",
+      "nano": 560000000
+    },
+    "volume": "15353070",
+    "time": "2026-01-01T00:00:00Z",
+    "isComplete": false,
+    "candleSource": "CANDLE_SOURCE_EXCHANGE",
+    "volumeBuy": "7516588",
+    "volumeSell": "7836482"
+  }]
+}

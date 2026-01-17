@@ -1,0 +1,74 @@
+{
+  "instrument": {
+    "figi": "BBG004S683W7",
+    "ticker": "AFLT",
+    "classCode": "TQBR",
+    "isin": "RU0009062285",
+    "lot": 10,
+    "currency": "rub",
+    "klong": {
+      "units": "2",
+      "nano": 0
+    },
+    "kshort": {
+      "units": "2",
+      "nano": 0
+    },
+    "dlong": {
+      "units": "0",
+      "nano": 198900000
+    },
+    "dshort": {
+      "units": "0",
+      "nano": 219900000
+    },
+    "dlongMin": {
+      "units": "0",
+      "nano": 142800000
+    },
+    "dshortMin": {
+      "units": "0",
+      "nano": 180000000
+    },
+    "shortEnabledFlag": true,
+    "name": "Аэрофлот",
+    "exchange": "moex_mrng_evng_e_wknd_dlr",
+    "countryOfRisk": "RU",
+    "countryOfRiskName": "Российская Федерация",
+    "instrumentType": "share",
+    "tradingStatus": "SECURITY_TRADING_STATUS_NORMAL_TRADING",
+    "otcFlag": false,
+    "buyAvailableFlag": true,
+    "sellAvailableFlag": true,
+    "minPriceIncrement": {
+      "units": "0",
+      "nano": 10000000
+    },
+    "apiTradeAvailableFlag": true,
+    "uid": "1c69e020-f3b1-455c-affa-45f8b8049234",
+    "realExchange": "REAL_EXCHANGE_MOEX",
+    "positionUid": "8615c3f2-758c-42be-a69d-c97ac9d95f04",
+    "assetUid": "b647e8d7-46de-4f29-bb5a-a1e594063b2d",
+    "requiredTests": [],
+    "forIisFlag": true,
+    "forQualInvestorFlag": false,
+    "weekendFlag": true,
+    "blockedTcaFlag": false,
+    "instrumentKind": "INSTRUMENT_TYPE_SHARE",
+    "first1minCandleDate": "2018-03-07T18:33:00Z",
+    "first1dayCandleDate": "2000-01-04T07:00:00Z",
+    "brand": {
+      "logoName": "RU0009062285.png",
+      "logoBaseColor": "#014a99",
+      "textColor": "#ffffff"
+    },
+    "dlongClient": {
+      "units": "0",
+      "nano": 198900000
+    },
+    "dshortClient": {
+      "units": "0",
+      "nano": 219900000
+    }
+  }
+}

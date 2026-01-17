@@ -1,0 +1,8 @@
+{
+  "premStatus": true,
+  "qualStatus": false,
+  "qualifiedForWorkWith": ["bond", "leverage"],
+  "tariff": "premium",
+  "userId": "d1b9e3b0-ca2d-4145-b156-6d7d89dd95ff",
+  "riskLevelCode": "STANDARD"
+}
